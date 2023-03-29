@@ -9,11 +9,13 @@ public class spawnHero : MonoBehaviour
 
     [Header("Ne pas toucher")]
     [SerializeField] private GameObject Beam;
+    [SerializeField] private cameraMove camScript;
     private GameObject beamSave;
-
+    [HideInInspector] public GameObject[] heroSave;
     private Transform[] spawnPoints;
 
     void Start() {
+        heroSave = new GameObject[heros.Length];
         spawnPoints = new Transform[transform.childCount];
         for(int i = 0 ; i < transform.childCount ; i++) {
             spawnPoints[i] = transform.GetChild(i);
@@ -28,7 +30,9 @@ public class spawnHero : MonoBehaviour
 
             yield return new WaitForSeconds(0.15f);
 
-            Instantiate(heros[i], spawnPoints[i].position, Quaternion.identity);
+            heroSave[i] = Instantiate(heros[i], spawnPoints[i].position, Quaternion.identity);
+            camScript.heros.Add(heroSave[i].transform);
         }
+        
     }
 }
