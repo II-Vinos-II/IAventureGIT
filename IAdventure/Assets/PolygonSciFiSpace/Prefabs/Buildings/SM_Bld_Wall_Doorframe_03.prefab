@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 4431950373480288}
   - component: {fileID: 33822868889198022}
   - component: {fileID: 23190110615309976}
-  - component: {fileID: 64882651977674374}
+  - component: {fileID: 1631502013922127844}
+  - component: {fileID: 4037070217741907927}
   m_Layer: 0
-  m_Name: SM_Bld_Wall_Door_01
+  m_Name: Porte
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131071754574210}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.000009155273, y: 1.6714872, z: 0}
+  m_LocalPosition: {x: 0.000009155273, y: 1.0000013, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -84,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64882651977674374
-MeshCollider:
+--- !u!65 &1631502013922127844
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -102,10 +103,25 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 3670b37c2bfdfdf44a413bdf812b6521, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 7.1131487, y: 3.9094415, z: 0.32256478}
+  m_Center: {x: 0, y: 0.000000059604645, z: 0}
+--- !u!208 &4037070217741907927
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131071754574210}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 3.5570002, y: 1.955, z: 0.16100001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1725943820791880
 GameObject:
   m_ObjectHideFlags: 0
@@ -119,7 +135,7 @@ GameObject:
   - component: {fileID: 23120495007714900}
   - component: {fileID: 64662826104861156}
   - component: {fileID: 64649402808888372}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SM_Bld_Wall_Doorframe_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

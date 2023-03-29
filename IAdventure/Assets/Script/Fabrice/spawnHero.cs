@@ -13,6 +13,11 @@ public class spawnHero : MonoBehaviour
     private GameObject beamSave;
     [HideInInspector] public GameObject[] heroSave;
     private Transform[] spawnPoints;
+    [HideInInspector] public int heroCount;
+
+    private void Awake() {
+        heroCount = heros.Length;
+    }
 
     void Start() {
         heroSave = new GameObject[heros.Length];

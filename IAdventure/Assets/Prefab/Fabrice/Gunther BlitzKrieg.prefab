@@ -5353,9 +5353,9 @@ GameObject:
   - component: {fileID: 3161070406904069059}
   - component: {fileID: 4838873091423648386}
   - component: {fileID: 6761865360269312951}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Gunther BlitzKrieg
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5474,6 +5474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b34588ee57e4f47a32bbc935989341, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
 --- !u!1 &9069494309542899412
 GameObject:
   m_ObjectHideFlags: 0
