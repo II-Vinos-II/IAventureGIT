@@ -12,14 +12,20 @@ public class Gunther : MonoBehaviour
         agent= GetComponent<NavMeshAgent>();
         goal = GameObject.FindWithTag("Goal").transform;
         agent.SetDestination(goal.position);
-
         agent.speed = speed;
+        StartCoroutine(checkGoal());
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    IEnumerator checkGoal() {
+        yield return new WaitForSeconds(1f);
+        agent.SetDestination(goal.position);
+        StartCoroutine(checkGoal());
     }
 
     private void OnDrawGizmos() {

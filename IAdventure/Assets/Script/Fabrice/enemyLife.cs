@@ -6,17 +6,19 @@ public class enemyLife : MonoBehaviour
 {
     [SerializeField] private int vie = 100;
     private Animator anim;
+    private robotBig scriptRobot;
 
-    void Start()
-    {
+    void Start() {
         anim = GetComponent<Animator>();
+        scriptRobot = GetComponent<robotBig>();
     }
 
-    public void takeDamage(int damage)
-    {
+    public void takeDamage(int damage) {
+        if(!scriptRobot.actif) {
+            scriptRobot.actif = true;
+        }
         vie-= damage;
-        if (vie <= 0)
-        {
+        if (vie <= 0) {
             anim.SetTrigger("death");
         }
     }

@@ -20,6 +20,7 @@ public class robotBig : MonoBehaviour
     private NavMeshAgent agent;
 
     private bool combat;
+    [HideInInspector] public bool actif;
     private Transform targetPlayer;
 
     private Animator anim;
@@ -36,7 +37,6 @@ public class robotBig : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.speed = speed;        
         shootScript = GetComponent<robotShoot>();
-        searchPlayer();
         StartCoroutine(checkTarget());
     }
 
@@ -48,8 +48,8 @@ public class robotBig : MonoBehaviour
     
     void Update() {
         if (combat && targetPlayer != null) {
-            lookTarget.position = targetPlayer.position;
-            aimTarget.position = Vector3.MoveTowards(aimTarget.position, targetPlayer.position, Time.deltaTime * 20);
+            lookTarget.position = targetPlayer.position + Vector3.up;
+            aimTarget.position = Vector3.MoveTowards(aimTarget.position, targetPlayer.position + Vector3.up, Time.deltaTime * 20);
             if (aimRig.weight != 1) {
                 aimRig.weight = Mathf.MoveTowards(aimRig.weight, 1, Time.deltaTime * 10);
             }            
@@ -72,26 +72,37 @@ public class robotBig : MonoBehaviour
     }
 
     IEnumerator checkTarget() {
-        targets = Physics.OverlapSphere(transform.position, distanceAggro, playerMask);
-        if (targets.Length > 0) {
-            targetDistance = new float[targets.Length];
-            for (int i = 0; i < targets.Length; i++) {
-                targetDistance[i] = Vector3.Distance(transform.position, targets[i].transform.position);
+        if (!actif) {
+            targets = Physics.OverlapSphere(transform.position, distanceAggro, playerMask);
+            if (targets.Length > 0) {
+                actif = true;
+                agent.SetDestination(targets[0].transform.position);
             }
-            Array.Sort(targetDistance, targets);
-
-            combat = true;
-            redLight.SetActive(true);
-            targetPlayer = targets[0].transform;
-            agent.isStopped = true;
-        } else {
-            combat = false;
-            redLight.SetActive(false);
-            targetPlayer = null;
-            agent.isStopped = false;
-            searchPlayer();
         }
 
+        if (actif) {
+            targets = Physics.OverlapSphere(transform.position, distanceAggro * 0.7f, playerMask);
+            
+            if (targets.Length > 0) {
+                targetDistance = new float[targets.Length];
+                for (int i = 0 ; i < targets.Length ; i++) {
+                    targetDistance[i] = Vector3.Distance(transform.position, targets[i].transform.position);
+                }
+                Array.Sort(targetDistance, targets);
+
+                combat = true;
+                redLight.SetActive(true);
+                targetPlayer = targets[0].transform;
+                agent.isStopped = true;
+            } else {
+                combat = false;
+                redLight.SetActive(false);
+                targetPlayer = null;
+                agent.isStopped = false;
+                searchPlayer();
+            }
+        }
+        
         yield return new WaitForSeconds(1f);
         StartCoroutine(checkTarget());
     }
@@ -106,8 +117,7 @@ public class robotBig : MonoBehaviour
         anim.SetBool("combat", combat);
     }
 
-    private void OnDrawGizmosSelected()
-    {
+    private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, distanceAggro);
     }
