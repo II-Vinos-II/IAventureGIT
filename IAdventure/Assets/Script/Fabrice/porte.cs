@@ -9,17 +9,13 @@ public class porte : MonoBehaviour {
     private bool go;
 
     void Update() {
-        if (Input.GetKeyDown(KeyCode.K)) {
-            activation();
-        }
-
         if (go) {
-            door.position = Vector3.MoveTowards(door.position, targetMove, Time.deltaTime * 10f);
+            door.localPosition = Vector3.MoveTowards(door.localPosition, targetMove, Time.deltaTime * 10f);
         }
     }
 
     public void activation() {
-        targetMove += door.position;
+        targetMove += door.localPosition;
         go = true;
     }
 }

@@ -5,11 +5,10 @@ using UnityEngine;
 public class enemyLife : MonoBehaviour
 {
     [SerializeField] private int vie = 100;
-    private Animator anim;
+    [SerializeField] GameObject EffectDeath;
     private robotBig scriptRobot;
 
     void Start() {
-        anim = GetComponent<Animator>();
         scriptRobot = GetComponent<robotBig>();
     }
 
@@ -17,9 +16,15 @@ public class enemyLife : MonoBehaviour
         if(!scriptRobot.actif) {
             scriptRobot.actif = true;
         }
+
         vie-= damage;
+
         if (vie <= 0) {
-            anim.SetTrigger("death");
+            scriptRobot.actif = true;
+            EffectDeath.SetActive(true);
+            EffectDeath.transform.parent = null;
+            Destroy(gameObject, 0.1f);
+            Destroy(EffectDeath, 2f);
         }
     }
 }

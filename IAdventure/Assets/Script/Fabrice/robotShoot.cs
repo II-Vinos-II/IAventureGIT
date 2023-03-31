@@ -15,6 +15,6 @@ public class robotShoot : MonoBehaviour
         laserSave = Instantiate(laser, canon.position, Quaternion.identity);
         rb = laserSave.GetComponent<Rigidbody>();
         laserSave.GetComponent<robotLaser>().degats = _degats;
-        rb.velocity = (target.position - canon.position).normalized * projectilSpeed;
+        rb.velocity = ((target.position + Vector3.up) - canon.position).normalized * projectilSpeed;
     }
 }

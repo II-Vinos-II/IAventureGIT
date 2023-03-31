@@ -9,7 +9,7 @@ public class robotLaser : MonoBehaviour
     private GameObject effectSave;
 
     private void OnTriggerEnter(Collider truc) {
-        if (truc.tag == "Player") {
+        if (truc.gameObject.layer == LayerMask.NameToLayer("Player") || truc.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
             effectSave = Instantiate(effect, transform.position, Quaternion.identity);
             truc.SendMessage("takeDamage", degats, SendMessageOptions.DontRequireReceiver);
             Destroy(effectSave, 3);
