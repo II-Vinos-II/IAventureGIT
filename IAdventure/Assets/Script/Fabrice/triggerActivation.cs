@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class triggerActivation : MonoBehaviour
 {
-    [SerializeField] private GameObject activationObject;
-    [SerializeField] private moveGoal goalToMove;
+    [SerializeField] private UnityEvent nextAction;
     private int nombreHero;
     private int heroMax;
 
@@ -17,10 +17,7 @@ public class triggerActivation : MonoBehaviour
         if (truc.gameObject.layer == LayerMask.NameToLayer("Player")) {
             nombreHero++;
             if(nombreHero == heroMax) {
-                activationObject.SendMessage("activation");
-                if (goalToMove != null) {
-                    goalToMove.nextPoint();
-                }
+                nextAction.Invoke();
             }
         }
     }

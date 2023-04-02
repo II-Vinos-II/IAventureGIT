@@ -37,7 +37,6 @@ public class spawnHero : MonoBehaviour
 
             heroSave[i] = Instantiate(heros[i], spawnPoints[i].position, Quaternion.identity);
             camScript.heros.Add(heroSave[i].transform);
-        }
-        
+        }        
     }
 }

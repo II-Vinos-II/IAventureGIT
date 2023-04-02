@@ -10,6 +10,7 @@ public class robotBig : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private int degats = 5;
     [SerializeField] private float distanceAggro = 10f;
+    [SerializeField] private float reloadTime = 1f;
 
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private LayerMask crazyMask;
@@ -69,19 +70,11 @@ public class robotBig : MonoBehaviour
         }
 
         if (combat && !reload && !hacked) {
-            reload = true;
-            if (targetPlayer != null) {
-                shootScript.shoot(targetPlayer, degats);
-            }            
-            StartCoroutine(shooting());
+            shootTarget();
         }
 
         if (crazy && !reload) {
-            reload = true;
-            if (targetPlayer != null) {
-                shootScript.shoot(targetPlayer, degats);
-            }
-            StartCoroutine(shooting());
+            shootTarget();
         }
 
         if (!combat) {
@@ -90,6 +83,14 @@ public class robotBig : MonoBehaviour
             }
         }
         animCheck();
+    }
+
+    void shootTarget() {
+        reload = true;
+        if (targetPlayer != null) {
+            shootScript.shoot(targetPlayer, degats);
+        }
+        StartCoroutine(shooting());
     }
 
     IEnumerator checkTarget() {
@@ -183,7 +184,7 @@ public class robotBig : MonoBehaviour
     }
 
     IEnumerator shooting() {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(reloadTime);
         reload = false;
     }
 
@@ -208,6 +209,12 @@ public class robotBig : MonoBehaviour
         }
         miniBoom.SetActive(true);
         StartCoroutine(miniWait());
+    }
+
+    public void FREEZE() {
+        hacked = true;
+        anim.SetTrigger("freeze");
+        returnCombat(2f);
     }
 
     IEnumerator miniWait() {
