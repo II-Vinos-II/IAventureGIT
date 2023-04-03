@@ -20,6 +20,8 @@ public class BulletController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        collision.gameObject.SendMessage("takeDamage",damage);
+        
         Destroy(gameObject);
     }
 }

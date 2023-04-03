@@ -9,10 +9,10 @@ using System;
 public class Player_Mylane : IaParent_Mylane
 {
 
-    bool canShoot,shoot,onAvance;
+    bool canShoot,shoot,onAvance,inDanger;
 
 
-
+    private  Bounds bounds;
     //public List<Transform> ennemie  = new List<Transform>();
     //public List<GameObject> mylane_Enemy = new List<GameObject>();
     public List<Transform> ally = new List<Transform>();
@@ -52,13 +52,16 @@ public class Player_Mylane : IaParent_Mylane
     public Collider[] targets;
     [SerializeField] private LayerMask ennemieMask;
     private float[] targetDistance;
+    public GameObject InsaneBot;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-
+        canShoot = true;
+        shoot = true;
+        onAvance = true;
         animator = GetComponent<Animator>();
         canuseCap1 = true;
         canuseCap2 = true;
@@ -70,24 +73,68 @@ public class Player_Mylane : IaParent_Mylane
     // Update is called once per frame
     void Update()
     {
-        Move(posTransform.position);
-        PrimaryFire();
+        DesiscionMaking();
+       
+        SpecialEnnemylist();
+      /*PrimaryFire();
         Capacity_3();
         Capacity_2();
-        Capacity_1();
+        Capacity_1();*/
     }
     void DesiscionMaking()
     {
-        if(targets.Length<=2)
+        if(targets.Length<=0)
         {
             onAvance = true;
+            Move(posTransform.position);
+            Debug.Log("EnterForwardMode");
         }
-        if(onAvance)
+        else
         {
-            if(canuseCap3)
+            onAvance = false;
+        }
+        if(!onAvance)
+        {
+            if(targets.Length<=3)
             {
-                Capacity_3();
+                Debug.Log("EnterAttaclMode");
+                if(canuseCap1)
+                {
+
+                    Capacity_1(ennemieToShoot);
+
+                }
+                else if(!canuseCap1)
+                {
+                    PrimaryFire();
+                }
+
             }
+            else if(targets.Length>3)
+            {
+                if(canuseCap3)
+                {
+
+
+                    
+                    Capacity_3();
+                   
+
+                }
+                else if(canuseCap2 && canuseCap1)
+                {
+                    Combo_1_2(ennemieToShoot);
+                }
+                else if(canuseCap1)
+                {
+                    Capacity_1(ennemieToShoot);
+                }
+                else
+                {
+                    PrimaryFire();
+                }
+            }
+            
         }
     }
 
@@ -101,13 +148,14 @@ public class Player_Mylane : IaParent_Mylane
     }
     void Move(Vector3 posToGo)
     {
-        if(!shoot)
+        Vector3 dir = this.transform.position - posTransform.position;
+        if(onAvance)
         {
-            nav.destination = posToGo;
+            nav.destination = posToGo + dir.normalized*3;
             animator.SetBool("Shoot", false);
             animator.SetBool("Walk", true);
         }
-        else if(shoot)
+        else if(!onAvance)
         {
             nav.destination = transform.position;
             animator.SetBool("Shoot", true);
@@ -126,15 +174,12 @@ public class Player_Mylane : IaParent_Mylane
     }   
     private void PrimaryFire()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
-        {
-            shoot = true;
-            transform.LookAt(ennemieToShoot.transform.position);
-        }
-        else
-        {
-            shoot = false;
-        }
+
+        
+        
+        transform.LookAt(ennemieToShoot.transform.position);
+        
+  
         if (canShoot && shoot)
         {
 
@@ -144,15 +189,18 @@ public class Player_Mylane : IaParent_Mylane
 
         }
     }
-    private void Capacity_1()
+    private void Capacity_1(GameObject objectToapply)
     {
-        if (canuseCap1 && Input.GetKeyDown(KeyCode.Space ))
+        if (canuseCap1)
         {
             canuseCap1 = false;
-            objectToTP = ally[1].gameObject;
-            telePortposition = new Vector3(-15,1,15);
-            objectToTP.transform.position = telePortposition;
             
+            telePortposition = transform.forward*-1;
+            objectToTP.transform.position = telePortposition;
+            if(canuseCap2)
+            {
+                Capacity_2();
+            }
             StartCoroutine(Wait(cooldown_1, 1));
         }
       
@@ -169,15 +217,53 @@ public class Player_Mylane : IaParent_Mylane
     }
     private void Capacity_3()
     {
-        if (canuseCap3 ))
+        if (canuseCap3 )
         {
+
             StartCoroutine(RayTimer());
+           
             canuseCap3 = false;
             StartCoroutine(Wait(cooldown_3, 3));
         }
 
      
     }
+    Vector3 GetCenterPoint()
+    {
+
+        bounds = new Bounds(targets[0].transform.position, Vector3.zero);
+        for (int i = 0; i < targets.Length; i++)
+        {
+            bounds.Encapsulate(targets[i].transform.position);
+        }
+
+        return bounds.center;
+    }
+    private void Combo_1_2(GameObject ennemietoAim)
+    {
+        Capacity_2();
+        Capacity_1(ennemietoAim);
+    }
+    private void Combo_1_2_3(GameObject ennemietoAim)
+    {
+        Capacity_2();
+        Capacity_1(ennemietoAim);
+        capacityPos_3 = InsaneBot.transform.position;
+        Capacity_3();
+
+    }
+    private void SpecialEnnemylist()
+    {
+        if(InsaneBot == null)
+            for(int i = 0; i<targets.Length;i++)
+            {
+                if(targets[i].gameObject.tag == "")
+                {
+                    InsaneBot = targets[i].gameObject;
+                }
+            }
+    }
+
     IEnumerator Wait(float timeToWait , int capacitytoCharge )
     {
         yield return new WaitForSeconds(timeToWait);
@@ -203,6 +289,7 @@ public class Player_Mylane : IaParent_Mylane
     }
     IEnumerator RayTimer()
     {
+        capacityPos_3 = GetCenterPoint();
         GameObject go =  Instantiate(explosion, capacityPos_3, transform.rotation) ;
         yield return new WaitForSeconds(3);
         Destroy(go);
@@ -210,7 +297,7 @@ public class Player_Mylane : IaParent_Mylane
     }
     IEnumerator checkTarget()
     {
-        Debug.Log("uoi");
+        //Debug.Log("uoi");
         targets = Physics.OverlapSphere(transform.position, 40,ennemieMask);
         
         if (targets.Length > 0)
@@ -231,9 +318,10 @@ public class Player_Mylane : IaParent_Mylane
            
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         StartCoroutine(checkTarget());
     }
+    
 
 
 }

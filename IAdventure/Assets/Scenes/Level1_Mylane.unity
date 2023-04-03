@@ -25387,7 +25387,7 @@ PrefabInstance:
     - target: {fileID: 6145420872724976526, guid: d68751cbebd5fed43bcb0d65530dc7a5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 188.65825
+      value: 175.85
       objectReference: {fileID: 0}
     - target: {fileID: 6145420872724976526, guid: d68751cbebd5fed43bcb0d65530dc7a5,
         type: 3}
@@ -25397,7 +25397,7 @@ PrefabInstance:
     - target: {fileID: 6145420872724976526, guid: d68751cbebd5fed43bcb0d65530dc7a5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 38.58577
+      value: 44.64
       objectReference: {fileID: 0}
     - target: {fileID: 6145420872724976526, guid: d68751cbebd5fed43bcb0d65530dc7a5,
         type: 3}
@@ -25441,9 +25441,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
         type: 3}
+      propertyPath: range
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
+        type: 3}
+      propertyPath: distance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
+        type: 3}
+      propertyPath: canuseCap1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
+        type: 3}
+      propertyPath: canuseCap2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
+        type: 3}
+      propertyPath: canuseCap3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
+        type: 3}
+      propertyPath: cooldown_3
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
+        type: 3}
       propertyPath: posTransform
       value: 
       objectReference: {fileID: 1199091444}
+    - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
+        type: 3}
+      propertyPath: capacityPos_3.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
+        type: 3}
+      propertyPath: capacityPos_3.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
+        type: 3}
+      propertyPath: capacityPos_3.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6441991481825463280, guid: d68751cbebd5fed43bcb0d65530dc7a5,
         type: 3}
       propertyPath: ennemieMask.m_Bits
