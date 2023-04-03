@@ -12293,7 +12293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794a0be125774454aa946d846a58e8b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vie: 100
+  vie: 400
   armor: 0
   vieBonus: 0
   vieMax: 0
