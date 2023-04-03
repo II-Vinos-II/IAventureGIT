@@ -50,6 +50,7 @@ public class Squadmanager : MonoBehaviour
     {
 
         squadHeal.Clear();
+        squadDeath.Clear();
 
 
         for(int i = 0; i < squadLife.Length; i++)
@@ -59,9 +60,11 @@ public class Squadmanager : MonoBehaviour
                 squadHeal.Add(squad[i]);
             }
         }
+
+
         for (int i = 0; i < squadLife.Length; i++)
         {
-            if (vieMaxPote[i] - squadLife[i].vie == 0)
+            if (vieMaxPote[i] - squadLife[i].vie == 100)
             {
                 squadDeath.Add(squad[i]);
             }
