@@ -10,7 +10,7 @@ public class playerLife : MonoBehaviour {
     [HideInInspector] public int vieMax;
     private Animator anim;
     private MonoBehaviour[] scripts;
-    private bool KO;
+    public bool KO;
     private bool regenArmor = true;
 
     void Awake() {
@@ -73,6 +73,7 @@ public class playerLife : MonoBehaviour {
             }
         }
         vie = Mathf.RoundToInt(vieMax / 2);
+        anim.SetTrigger("alive");
     }
 
     IEnumerator armorReset() {
