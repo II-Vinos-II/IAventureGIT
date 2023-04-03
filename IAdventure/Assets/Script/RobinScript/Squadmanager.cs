@@ -64,7 +64,7 @@ public class Squadmanager : MonoBehaviour
 
         for (int i = 0; i < squadLife.Length; i++)
         {
-            if (vieMaxPote[i] - squadLife[i].vie == 100)
+            if (vieMaxPote[i] - squadLife[i].vie == squadLife[i].vie)
             {
                 squadDeath.Add(squad[i]);
             }
