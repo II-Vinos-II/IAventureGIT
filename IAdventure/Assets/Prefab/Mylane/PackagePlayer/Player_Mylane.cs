@@ -9,13 +9,14 @@ using System;
 public class Player_Mylane : IaParent_Mylane
 {
 
-    bool canShoot,shoot,onAvance,inDanger;
+    bool canShoot,shoot,onAvance,inDanger,canability;
 
 
     private  Bounds bounds;
     //public List<Transform> ennemie  = new List<Transform>();
     //public List<GameObject> mylane_Enemy = new List<GameObject>();
     public List<Transform> ally = new List<Transform>();
+   
     public GameObject bullet;
     public Transform bulletPoint;
     private Animator animator;
@@ -25,7 +26,7 @@ public class Player_Mylane : IaParent_Mylane
     public float actionRange_1 = 25;
     public float cooldown_1 = 6;
     public  GameObject objectToTP;
-    public  Vector3 telePortposition;
+    public  Transform telePortposition;
 
 
 
@@ -37,7 +38,7 @@ public class Player_Mylane : IaParent_Mylane
     public float damageMultiplicator_2 = 1.25f;
     public  GameObject orderTarget;
     public  List<GameObject> allyToAplly;
-
+    
 
     [Header("Capacité 3 : La mort vient du ciel ")]
 
@@ -59,6 +60,8 @@ public class Player_Mylane : IaParent_Mylane
     // Start is called before the first frame update
     void Start()
     {
+        
+        canability = true;
         canShoot = true;
         shoot = true;
         onAvance = true;
@@ -95,45 +98,51 @@ public class Player_Mylane : IaParent_Mylane
         }
         if(!onAvance)
         {
-            if(targets.Length<=3)
+            if(canability)
             {
-                Debug.Log("EnterAttaclMode");
-                if(canuseCap1)
+                if (targets.Length <= 3)
                 {
+                    //Debug.Log("EnterAttaclMode");
+                    if (canuseCap1)
+                    {
 
-                    Capacity_1(ennemieToShoot);
+                        Capacity_1(ennemieToShoot);
+                        Debug.Log("bbbbbbbbb");
+
+                    }
+                    else if (!canuseCap1)
+                    {
+                        PrimaryFire();
+                    }
 
                 }
-                else if(!canuseCap1)
+                else if (targets.Length > 3)
                 {
-                    PrimaryFire();
-                }
+                    if (canuseCap3)
+                    {
 
+
+
+                        Capacity_3();
+
+
+                    }
+                    else if (canuseCap2 && canuseCap1 /*&& InsaneBot != null*/ )
+                    {
+                        Debug.Log("aaaaaaa");
+                        Combo_1_2(ennemieToShoot);
+                    }
+                    else if (canuseCap1)
+                    {
+                        Capacity_1(ennemieToShoot);
+                    }
+                    else
+                    {
+                        PrimaryFire();
+                    }
+                }
             }
-            else if(targets.Length>3)
-            {
-                if(canuseCap3)
-                {
-
-
-                    
-                    Capacity_3();
-                   
-
-                }
-                else if(canuseCap2 && canuseCap1 /*&& InsaneBot != null*/ )
-                {
-                    Combo_1_2(ennemieToShoot);
-                }
-                else if(canuseCap1)
-                {
-                    Capacity_1(ennemieToShoot);
-                }
-                else
-                {
-                    PrimaryFire();
-                }
-            }
+          
             
         }
     }
@@ -178,8 +187,9 @@ public class Player_Mylane : IaParent_Mylane
         
         
         transform.LookAt(ennemieToShoot.transform.position);
-        
-  
+        animator.SetBool("Shoot", true);
+        animator.SetBool("Walk", false);
+
         if (canShoot && shoot)
         {
 
@@ -193,15 +203,26 @@ public class Player_Mylane : IaParent_Mylane
     {
         if (canuseCap1)
         {
+            objectToTP = objectToapply;
             if(InsaneBot != null)
             {
-                objectToapply = InsaneBot;
+                objectToTP = InsaneBot;
             }
+            /*else if(objectToapply == null)
+            {
+                objectToTP = ennemieToShoot;
+            }*/
 
             canuseCap1 = false;
+            if(targets.Length<3)
+            {
+                objectToTP.transform.position = telePortposition.position;
+            }
+            else if (targets.Length > 3)
+            {
+                objectToTP.transform.position = telePortposition.position; // un spawn dvant un tank pour que le robot prenne les balles
+            }
             
-            telePortposition = transform.forward*-1;
-            objectToTP.transform.position = telePortposition;
             if(canuseCap2)
             {
                 Capacity_2(objectToapply);
@@ -229,6 +250,7 @@ public class Player_Mylane : IaParent_Mylane
            
             canuseCap3 = false;
             StartCoroutine(Wait(cooldown_3, 3));
+            StartCoroutine( CoolDown());
         }
 
      
@@ -237,7 +259,7 @@ public class Player_Mylane : IaParent_Mylane
     {
 
         bounds = new Bounds(targets[0].transform.position, Vector3.zero);
-        for (int i = 0; i < targets.Length; i++)
+        for (int i = 0; i < targets.Length/2; i++)
         {
             bounds.Encapsulate(targets[i].transform.position);
         }
@@ -269,6 +291,7 @@ public class Player_Mylane : IaParent_Mylane
                 }
             }
     }
+  
 
     IEnumerator Wait(float timeToWait , int capacitytoCharge )
     {
@@ -326,6 +349,12 @@ public class Player_Mylane : IaParent_Mylane
 
         yield return new WaitForSeconds(0.1f);
         StartCoroutine(checkTarget());
+    }
+    IEnumerator CoolDown()
+    {
+        canability = false; 
+        yield return new WaitForSeconds(0.5f);
+        canability = true; 
     }
     
 

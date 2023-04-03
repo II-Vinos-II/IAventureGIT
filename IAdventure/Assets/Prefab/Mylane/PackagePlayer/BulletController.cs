@@ -16,12 +16,19 @@ public class BulletController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rgbd.velocity = transform.forward*15;
+        rgbd.velocity = transform.forward*15;       
     }
     private void OnCollisionEnter(Collision collision)
     {
-        collision.gameObject.SendMessage("takeDamage",damage);
+        if(collision.gameObject.layer == 6)
+        {
+            collision.gameObject.SendMessage("takeDamage", 1);
+            Debug.Log("chech");
+            Destroy(gameObject);
+
+        }
+       
         
-        Destroy(gameObject);
+       
     }
 }
