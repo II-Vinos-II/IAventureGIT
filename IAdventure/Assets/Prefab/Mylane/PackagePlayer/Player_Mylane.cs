@@ -121,7 +121,7 @@ public class Player_Mylane : IaParent_Mylane
                    
 
                 }
-                else if(canuseCap2 && canuseCap1)
+                else if(canuseCap2 && canuseCap1 /*&& InsaneBot != null*/ )
                 {
                     Combo_1_2(ennemieToShoot);
                 }
@@ -193,19 +193,24 @@ public class Player_Mylane : IaParent_Mylane
     {
         if (canuseCap1)
         {
+            if(InsaneBot != null)
+            {
+                objectToapply = InsaneBot;
+            }
+
             canuseCap1 = false;
             
             telePortposition = transform.forward*-1;
             objectToTP.transform.position = telePortposition;
             if(canuseCap2)
             {
-                Capacity_2();
+                Capacity_2(objectToapply);
             }
             StartCoroutine(Wait(cooldown_1, 1));
         }
       
     }
-    private void Capacity_2()
+    private void Capacity_2(GameObject ennemieAimed )
     {
         if(canuseCap2)
         {
@@ -241,12 +246,12 @@ public class Player_Mylane : IaParent_Mylane
     }
     private void Combo_1_2(GameObject ennemietoAim)
     {
-        Capacity_2();
+        Capacity_2(ennemieToShoot);
         Capacity_1(ennemietoAim);
     }
     private void Combo_1_2_3(GameObject ennemietoAim)
     {
-        Capacity_2();
+        Capacity_2(ennemieToShoot);
         Capacity_1(ennemietoAim);
         capacityPos_3 = InsaneBot.transform.position;
         Capacity_3();
@@ -257,9 +262,10 @@ public class Player_Mylane : IaParent_Mylane
         if(InsaneBot == null)
             for(int i = 0; i<targets.Length;i++)
             {
-                if(targets[i].gameObject.tag == "")
+                if(targets[i].gameObject.tag == "Elite")
                 {
                     InsaneBot = targets[i].gameObject;
+                    Debug.Log("aaa");
                 }
             }
     }
