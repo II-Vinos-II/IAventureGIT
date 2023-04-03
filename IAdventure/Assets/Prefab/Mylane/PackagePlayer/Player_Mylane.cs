@@ -169,7 +169,7 @@ public class Player_Mylane : IaParent_Mylane
     }
     private void Capacity_3()
     {
-        if (canuseCap3 ))
+        if (canuseCap3 )
         {
             StartCoroutine(RayTimer());
             canuseCap3 = false;
