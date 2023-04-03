@@ -31,8 +31,9 @@ public class RobinIA : MonoBehaviour
     public Transform spawnSpell;
     public GameObject shield;
     public Transform shieldTarget;
+    public bool shieldIsOut;
 
-
+    public Vector3 shieldTarget2;
 
     RaycastHit hit;
     //public Collider[] hitColliders;
@@ -45,7 +46,9 @@ public class RobinIA : MonoBehaviour
         goal = GameObject.FindGameObjectWithTag("Goal");
         anim = GetComponent<Animator>();
         canShoot = true;
-        
+        shieldIsOut = true;
+
+
     }
 
     private void Update()
@@ -53,6 +56,15 @@ public class RobinIA : MonoBehaviour
         navMesh.SetDestination(goal.transform.position);
         
         Shoot(AttackRadius());
+        for (int i=0; i < Squadmanager.Instance.squadLife.Length; i++)
+        {
+
+            if(Squadmanager.Instance.squadLife[i].vie <= 90% Squadmanager.Instance.squadLife[i].vieMax)
+            {
+                
+                ThrowShield();
+            }
+        }
         
     }
 
@@ -95,7 +107,7 @@ public class RobinIA : MonoBehaviour
     {
         print("aaza");
         canShoot = false;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(fireRate);
         canShoot = true;
     }
 
@@ -142,15 +154,12 @@ public class RobinIA : MonoBehaviour
 
     void ThrowShield()
     {
-        Instantiate(shield, spawnSpell.transform);
-            if(shieldTarget == null)
-            {
-                Destroy(shield);
-            }
-            else
-            {
+        if (shieldIsOut)
+        {
 
-                shield.transform.position = shieldTarget.transform.position.normalized;
-            }
+            Instantiate(shield, spawnSpell.transform);
+            shieldIsOut = false;
+        }
+           
     }
 }

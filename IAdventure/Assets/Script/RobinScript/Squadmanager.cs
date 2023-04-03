@@ -39,7 +39,7 @@ public class Squadmanager : MonoBehaviour
     //public int[] viepote;
     public int[] vieMaxPote;
     public List<GameObject> squadHeal = new List<GameObject>();
-
+    public List<GameObject> squadDeath = new List<GameObject>();
     void Start()
     {
         
@@ -59,6 +59,14 @@ public class Squadmanager : MonoBehaviour
                 squadHeal.Add(squad[i]);
             }
         }
+        for (int i = 0; i < squadLife.Length; i++)
+        {
+            if (vieMaxPote[i] - squadLife[i].vie == 0)
+            {
+                squadDeath.Add(squad[i]);
+            }
+        }
+
     }
 
     
