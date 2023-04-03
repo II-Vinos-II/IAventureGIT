@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 3301722790693899161}
   - component: {fileID: 4227692221775437579}
   - component: {fileID: 2055201747997448743}
+  - component: {fileID: 7673381114569863889}
   m_Layer: 0
   m_Name: Eclair
   m_TagString: Untagged
@@ -65,7 +66,7 @@ Transform:
   m_Children:
   - {fileID: 6530176079448627047}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!2083052967 &3528333777313980519
 VisualEffect:
@@ -179,3 +180,15 @@ MonoBehaviour:
   m_Property:
     m_Name: target
   Target: {fileID: 6530176079448627047}
+--- !u!114 &7673381114569863889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5382393778335403499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e956cf9ff31f0a4db148608023a9926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -16,6 +16,8 @@ public class TEST : MonoBehaviour
             zapSave = Instantiate(zap, canon.transform.position, Quaternion.identity);
             targetZap = zapSave.transform.GetChild(0).transform;
             targetZap.position = Enemy.position + Vector3.up;
+            zapSave.GetComponent<zapPropagation>().bounce = 2;
+            zapSave.GetComponent<zapPropagation>().targetVictime = targetZap;
             Destroy(zapSave, 2f);
         }
     }
