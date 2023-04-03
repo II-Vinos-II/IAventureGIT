@@ -14,7 +14,8 @@ public class enemyLife : MonoBehaviour
     }
 
     public void takeDamage(int damage) {
-        if(!scriptRobot.actif) {
+        if(!scriptRobot.actif) 
+        {
             scriptRobot.actif = true;
         }
 
