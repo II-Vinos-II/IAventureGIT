@@ -18,10 +18,5 @@ public class spawner : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H)) {
             Instantiate(enemy, spawnPoint, Quaternion.identity);
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            print("pintade");
-        }
     }
 }

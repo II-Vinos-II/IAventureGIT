@@ -8,7 +8,7 @@ public class spawnVillain : MonoBehaviour
     [Header("C'est qui le villain a fumer ?")]
     [SerializeField] private GameObject villainPrefab;
     private GameObject villainSave;
-    private List <GameObject> villains;
+    private List <GameObject> villains = new List<GameObject>();
 
     [Header("Sinon, vous ça va ?")]    
     [SerializeField] private GameObject Beam;
@@ -24,13 +24,15 @@ public class spawnVillain : MonoBehaviour
     }
 
     IEnumerator spawning() {
-        for (int i = 0 ; i < villains.Count ; i++) {
+        for (int i = 0 ; i < spawnPoints.Length ; i++) {
             beamSave = Instantiate(Beam, spawnPoints[i].position, Quaternion.identity);
             Destroy(beamSave, 1f);
+            
+            yield return new WaitForSeconds(0.15f);
+
             villainSave = Instantiate(villainPrefab, spawnPoints[i].position, Quaternion.identity);
             villains.Add(villainSave);
             villainSave.GetComponent<enemyLife>().jeSuisTonPere(this);
-            yield return new WaitForSeconds(0.15f);
         }
     }
 
