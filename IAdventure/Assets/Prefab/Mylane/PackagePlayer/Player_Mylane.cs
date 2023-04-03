@@ -10,6 +10,7 @@ public class Player_Mylane : IaParent_Mylane
 {
 
     bool canShoot,shoot,onAvance,inDanger,canability;
+    public bool WasIncombat;
 
 
     private  Bounds bounds;
@@ -26,6 +27,7 @@ public class Player_Mylane : IaParent_Mylane
     public float actionRange_1 = 25;
     public float cooldown_1 = 6;
     public  GameObject objectToTP;
+    public GameObject tp_particle;
     public  Transform telePortposition;
 
 
@@ -49,6 +51,7 @@ public class Player_Mylane : IaParent_Mylane
     public float attackRay_3 = 5;
     public GameObject explosion;
     public Vector3 capacityPos_3;
+   
 
     public Collider[] targets;
     [SerializeField] private LayerMask ennemieMask;
@@ -60,7 +63,7 @@ public class Player_Mylane : IaParent_Mylane
     // Start is called before the first frame update
     void Start()
     {
-        
+        posTransform = GameObject.FindGameObjectWithTag("Goal").transform;
         canability = true;
         canShoot = true;
         shoot = true;
@@ -88,13 +91,23 @@ public class Player_Mylane : IaParent_Mylane
     {
         if(targets.Length<=0)
         {
-            onAvance = true;
-            Move(posTransform.position);
-            Debug.Log("EnterForwardMode");
+            if(WasIncombat && !onAvance)
+            {
+                StartCoroutine(ReloadCooldown());
+                
+            }
+            else if(onAvance)
+            {
+
+                Move(posTransform.position);
+                Debug.Log("EnterForwardMode");
+            }
+           
         }
         else
         {
             onAvance = false;
+            WasIncombat = true;
         }
         if(!onAvance)
         {
@@ -214,13 +227,15 @@ public class Player_Mylane : IaParent_Mylane
             }*/
 
             canuseCap1 = false;
-            if(targets.Length<3)
+            if(targets.Length<=3)
             {
                 objectToTP.transform.position = telePortposition.position;
+                Instantiate(tp_particle, objectToTP.transform.position, transform.rotation);
             }
             else if (targets.Length > 3)
             {
                 objectToTP.transform.position = telePortposition.position; // un spawn dvant un tank pour que le robot prenne les balles
+                Instantiate(tp_particle, objectToTP.transform.position, transform.rotation);
             }
             
             if(canuseCap2)
@@ -355,6 +370,12 @@ public class Player_Mylane : IaParent_Mylane
         canability = false; 
         yield return new WaitForSeconds(0.5f);
         canability = true; 
+    }
+    IEnumerator ReloadCooldown()
+    {
+        WasIncombat = false;
+        yield return new WaitForSeconds(30f);
+        onAvance = true;
     }
     
 
