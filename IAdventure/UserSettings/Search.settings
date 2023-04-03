@@ -21,6 +21,11 @@ scopes = {
 	"last_search.3172962C" = "debris"
 	"OpenInspectorPreview.3172962C" = "0"
 	"currentGroup.3172962C" = "all"
+	"picker_window_position_offset.7E63D72B" = "56,79993;472;504,8;550,4"
+	"picker_search_text.7E63D72B" = ""
+	"last_search.7E63D72B" = ""
+	"OpenInspectorPreview.7E63D72B" = "0"
+	"currentGroup.7E63D72B" = "all"
 }
 providers = {
 	adb = {
