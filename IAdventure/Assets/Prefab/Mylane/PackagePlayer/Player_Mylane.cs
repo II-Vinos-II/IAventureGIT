@@ -57,12 +57,15 @@ public class Player_Mylane : IaParent_Mylane
     [SerializeField] private LayerMask ennemieMask;
     private float[] targetDistance;
     public GameObject InsaneBot;
-    public GameObject Cap2_Target;
+    public GameObject Cap2_Target,tank_1,tank_2;
+    private GameObject tanktoH;
 
 
     // Start is called before the first frame update
     void Start()
     {
+      /*  tank_1 = FindObjectOfType<EisernJungfrauCornelia>().gameObject;
+        tank_2 = FindObjectOfType<IaBerserk>().gameObject;*/
         posTransform = GameObject.FindGameObjectWithTag("Goal").transform;
         canability = true;
         canShoot = true;
@@ -240,7 +243,7 @@ public class Player_Mylane : IaParent_Mylane
             }
             else if (targets.Length > 3)
             {
-                objectToTP.transform.position = telePortposition.position; // un spawn dvant un tank pour que le robot prenne les balles
+                objectToTP.transform.position = TankToApply().transform.position; // un spawn dvant un tank pour que le robot prenne les balles
                 Instantiate(tp_particle, objectToTP.transform.position, transform.rotation);
             }
             
@@ -261,7 +264,7 @@ public class Player_Mylane : IaParent_Mylane
             Cap2_Target = ennemieAimed;
             for (int i = 0; i < GameObject.FindGameObjectsWithTag("DPS").Length; i++)
             {
-               // GameObject.FindGameObjectsWithTag("DPS")[i].gameObject.GetComponent<Samuel_Controler>().;
+                //GameObject.FindGameObjectsWithTag("DPS")[i].gameObject.GetComponent<>().;
             }
             StartCoroutine(CancelFocus());
             StartCoroutine(Wait(cooldown_2, 2));
@@ -318,6 +321,19 @@ public class Player_Mylane : IaParent_Mylane
                     Debug.Log("aaa");
                 }
             }
+    }
+    GameObject TankToApply()
+    {
+        if(tanktoH == tank_1 )
+        {
+            tanktoH = tank_2;
+        }
+        else
+        {
+            tanktoH = tank_1;
+        }
+        GameObject objectTo = tanktoH.transform.GetChild(0).gameObject;
+        return objectTo;
     }
   
     IEnumerator CancelFocus()
