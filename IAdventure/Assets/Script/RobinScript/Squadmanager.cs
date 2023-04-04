@@ -66,7 +66,7 @@ public class Squadmanager : MonoBehaviour
         {
             if (vieMaxPote[i] - squadLife[i].vie == vieMaxPote[i])
             {
-                print("pozizra");
+                
                 squadDeath.Add(squad[i]);
             }
         }

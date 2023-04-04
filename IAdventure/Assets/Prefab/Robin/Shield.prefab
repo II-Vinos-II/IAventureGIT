@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 644302758703258483}
   - component: {fileID: 6895628014490496623}
   - component: {fileID: 1303259091551499767}
-  - component: {fileID: 1050600002376298944}
   - component: {fileID: 5552382957466819852}
-  - component: {fileID: 5449059999800620961}
+  - component: {fileID: -2429445371549247263}
+  - component: {fileID: 3008163905192870637}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -86,8 +86,58 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1050600002376298944
-MeshCollider:
+--- !u!114 &5552382957466819852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2287256108907433111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815bb9a609b06fc409605aa2a2bc7d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  countOfbound: 0
+  boundMax: 5
+  speed: 12
+  shieldGive: 20
+  bounceRange: 50
+  allyLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  allyLife: {fileID: 0}
+  center: {fileID: 0}
+  me: {fileID: 0}
+--- !u!54 &-2429445371549247263
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2287256108907433111}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &3008163905192870637
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,52 +154,6 @@ MeshCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43634521119405276, guid: d6d9111829bb6564384f8a8a596eeb80, type: 2}
---- !u!114 &5552382957466819852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2287256108907433111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 815bb9a609b06fc409605aa2a2bc7d39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  countOfbound: 0
-  boundMax: 5
-  navMesh: {fileID: 0}
-  shieldGive: 20
-  bounceRange: 4
-  allyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  allyLife: {fileID: 0}
-  center: {fileID: 0}
-  me: {fileID: 0}
---- !u!195 &5449059999800620961
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2287256108907433111}
-  m_Enabled: 1
-  m_AgentTypeID: 0
+  serializedVersion: 3
   m_Radius: 0.41088772
-  m_Speed: 12
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.3737605
-  m_BaseOffset: 0.18688025
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_Center: {x: 0, y: 0.09344012, z: 0.000000014901161}

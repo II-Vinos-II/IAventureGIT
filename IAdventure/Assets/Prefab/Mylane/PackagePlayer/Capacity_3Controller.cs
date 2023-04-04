@@ -5,6 +5,7 @@ using UnityEngine;
 public class Capacity_3Controller : MonoBehaviour
 {
     private bool damageable;
+    public GameObject Explosion;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class Capacity_3Controller : MonoBehaviour
 
     {
         damageable = true;
+        Instantiate(Explosion, transform.position, transform.rotation);
         yield return new WaitForSeconds(0.01f);
         damageable = false;
         yield return new WaitForSeconds(0.95f);
