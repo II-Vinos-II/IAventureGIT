@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 2683937154227454970}
   - component: {fileID: 5075230149860811153}
   m_Layer: 3
-  m_Name: Player
+  m_Name: Cornelia
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282,6 +282,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3065767808646432350}
   - {fileID: 4288239521958054058}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -400,7 +401,6 @@ MonoBehaviour:
   shield: {fileID: 4288487333408510058}
   actionRange_3: 2
   cooldown_3: 1
-  duration_3: 0.3
   weakness_3: 50
   weaknessTime_3: 0.7
 --- !u!114 &5075230149860811153
@@ -419,6 +419,7 @@ MonoBehaviour:
   armor: 50
   vieBonus: 0
   vieMax: 0
+  KO: 0
 --- !u!1 &4293061351032371872
 GameObject:
   m_ObjectHideFlags: 0
@@ -2645,6 +2646,37 @@ Transform:
   m_Father: {fileID: 4295571413140456122}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -1.27033, y: 1.30232, z: 104.41107}
+--- !u!1 &9169980903307645145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3065767808646432350}
+  m_Layer: 3
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3065767808646432350
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9169980903307645145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4292699800090783845}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4292699799383463866
 PrefabInstance:
   m_ObjectHideFlags: 0

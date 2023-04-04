@@ -1173,7 +1173,7 @@ Transform:
   - {fileID: 4867736638790072865}
   - {fileID: 8694482995693880148}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3555556960534727579
 Animator:
@@ -1206,7 +1206,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 0
+  m_Speed: 7
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1236,7 +1236,7 @@ MonoBehaviour:
   damage: 3
   laserOrigin: {fileID: 8515177389279634635}
   fireRate: 1
-  range: 100
+  range: 15
   laserDuration: 0
   spawnDrone: {fileID: 1873432492892213585}
   drone: {fileID: 0}
@@ -3621,7 +3621,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7424248601899919118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.002, y: 0.107, z: -0.009}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

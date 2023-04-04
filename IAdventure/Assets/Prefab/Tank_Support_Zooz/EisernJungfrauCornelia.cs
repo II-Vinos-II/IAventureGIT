@@ -11,6 +11,7 @@ public class EisernJungfrauCornelia : IaParent_Enzo
     [SerializeField] private Animator anims;
     [HideInInspector] public bool isAnimLocked;
     [SerializeField] private float updatePathInterval;
+    private Player_Mylane scriptDeMylane;
     private float updatePathCooldown;
     private playerLife lifeManager;
 
@@ -46,7 +47,7 @@ public class EisernJungfrauCornelia : IaParent_Enzo
     private float reloadC3;
     //[SerializeField] private float duration_3 = 0.3f;
     [SerializeField] private float weakness_3 = 50;
-    [SerializeField] private float weaknessTime_3 = 0.7f;
+    //[SerializeField] private float weaknessTime_3 = 0.7f;
     private bool inCap3;
     private List<Rigidbody> alreadyReversed;
     #endregion
@@ -59,6 +60,7 @@ public class EisernJungfrauCornelia : IaParent_Enzo
         nav = GetComponent<NavMeshAgent>();
         nav.speed = speed;
         rgbd = GetComponent<Rigidbody>();
+        scriptDeMylane = FindObjectOfType<Player_Mylane>();
     }
 
     private void Update()
@@ -118,7 +120,7 @@ public class EisernJungfrauCornelia : IaParent_Enzo
             if (shootTargets.Count > 0)
             {
                 isAnimLocked = true;
-                attackTarget = shootTargets[GetClosestTarget(potentialTargets)].transform;
+                attackTarget = shootTargets[GetClosestTarget(shootTargets)].transform;
                 anims.SetTrigger("Shoot");
                 return;
             }
@@ -132,10 +134,14 @@ public class EisernJungfrauCornelia : IaParent_Enzo
                 anims.SetFloat("Speed", nav.velocity.magnitude);
                 updatePathCooldown = updatePathInterval;
             }
-            else 
+            else if (scriptDeMylane.onAvance)
             {
-                nav.SetDestination(GameObject.FindGameObjectWithTag("Goal").transform.position);
+                Vector3 dir = transform.position - GameObject.FindGameObjectWithTag("Goal").transform.position;
+                nav.destination = GameObject.FindGameObjectWithTag("Goal").transform.position - dir.normalized * 3;
                 updatePathCooldown = updatePathInterval;
+            } else 
+            {
+                nav.destination = transform.position;
             }
         }
     }
@@ -191,8 +197,9 @@ public class EisernJungfrauCornelia : IaParent_Enzo
 
 
     #region(Capacités)
-    public void Fire(Transform target)
+    public void Fire()
     {
+        
         List<Transform> targets = new();
         for (int i = 0; i < numberOfCasts; i++)
         {
@@ -200,29 +207,34 @@ public class EisernJungfrauCornelia : IaParent_Enzo
                             transform.forward.y,
                             transform.forward.x * Mathf.Sin(-Cone / 2 + i * (Cone / numberOfCasts)) + transform.forward.z * Mathf.Cos(-Cone / 2 + i * (Cone / numberOfCasts)));
             
-            Physics.Raycast(transform.position, Dir, out RaycastHit hit,range, ennemieDetect);
-            GameObject newBullet = Instantiate(bullet, gunCannon.position, transform.rotation, null);
-            newBullet.GetComponent<Rigidbody>().velocity = Dir * bulletSpeed;
-
-            if (hit.transform.TryGetComponent<robotBig>(out _))
+            if (Physics.Raycast(transform.position, Dir, out RaycastHit hit,range, ennemieDetect))
             {
-                bool doExist = false;
-                for (int y = 0; y < targets.Count; y++)
+                GameObject newBullet = Instantiate(bullet, gunCannon.position, transform.rotation, null);
+                newBullet.GetComponent<Rigidbody>().velocity = Dir * bulletSpeed;
+                print(hit.transform.name);
+                if (hit.transform.TryGetComponent<robotBig>(out _))
                 {
-                    if (hit.transform == targets[y])
+                    bool doExist = false;
+                    for (int y = 0; y < targets.Count; y++)
                     {
-                        doExist = true;
+                        if (hit.transform == targets[y])
+                        {
+                            doExist = true;
+                        }
                     }
-                }
-                if (!doExist)
-                {
-                    targets.Add(hit.transform);
+                    if (!doExist)
+                    {
+                        targets.Add(hit.transform);
+                    }
                 }
             }
         }
         for (int i = 0; i < targets.Count; i++)
         {
-            target.GetComponent<playerLife>().vie -= ((int)damagePerHit);
+            if(targets[i] != null)
+            {
+                targets[i].GetComponent<enemyLife>().takeDamage((int)damagePerHit);
+            }
         }
         fireCooldown = fireRate;
     }

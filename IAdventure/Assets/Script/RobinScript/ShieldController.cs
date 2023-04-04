@@ -83,10 +83,11 @@ public class ShieldController : MonoBehaviour
         }
     }
 
+    public Collider[] hitColliders;
     void BounceShield()
     {
         countOfbound++;
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, bounceRange, allyLayer);
+        hitColliders = Physics.OverlapSphere(transform.position, bounceRange, allyLayer);
        
 
         for (int i = 0; i < hitColliders.Length; i++)
@@ -98,6 +99,11 @@ public class ShieldController : MonoBehaviour
                 allyHistorique.Add(target);
 
                 break;
+            }
+            if(hitColliders[i].transform != target.transform && allyHistorique.Contains(hitColliders[i].transform))
+            {
+                Destroy(this.gameObject);
+                me.shieldIsOut = true;
             }
             
 
