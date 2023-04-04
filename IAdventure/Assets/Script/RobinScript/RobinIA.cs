@@ -18,6 +18,7 @@ public class RobinIA : MonoBehaviour
     public GameObject weapon;
     public int damage;
     public Transform laserOrigin;
+    public Transform rayOrigin;
     public float fireRate;
     public float range;
     public float laserDuration;
@@ -32,6 +33,7 @@ public class RobinIA : MonoBehaviour
     public GameObject shield;
     public Transform shieldTarget;
     public bool shieldIsOut;
+    public bool coolDownEnd;
     private float spell2Cooldown= 10f;
     private playerLife Pl;
 
@@ -49,8 +51,8 @@ public class RobinIA : MonoBehaviour
         anim = GetComponent<Animator>();
         canShoot = true;
         shieldIsOut = true;
-
-
+        lineRenderer = GetComponentInChildren<LineRenderer>();
+        coolDownEnd = true;
     }
 
     private void Update()
@@ -72,36 +74,35 @@ public class RobinIA : MonoBehaviour
             if(Squadmanager.Instance.squadLife[i].vie <= 90% Squadmanager.Instance.squadLife[i].vieMax)
             {
                 Pl = Squadmanager.Instance.squadLife[i];
-                if (shieldIsOut)
-                {
-                    StartCoroutine(shieldCooldown());
-                    
-
-                }
+                
             }
         }
 
-        if (Pl != null)
+        if (Pl != null && shieldIsOut && coolDownEnd)
         {
-            StartCoroutine(shieldCooldown());
+            ThrowShield();
         }
 
 
     }
-    IEnumerator shieldCooldown()
+    public IEnumerator shieldCooldown()
     {
-        print("apalaapra");
+
+        coolDownEnd = false;
         yield return new WaitForSeconds(spell2Cooldown);
-        ThrowShield();
+        coolDownEnd = true;
+
+
     }
     protected void Shoot(Transform target)
     {
-        
         lineRenderer.SetPosition(0, laserOrigin.position);
         transform.LookAt(target);
         
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, ennemieDetect))
+        
+        if (Physics.Raycast(rayOrigin.transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, ennemieDetect))
         {
+            print("fokkfopafaf");
             lifeE = hit.transform.GetComponent<enemyLife>();
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             
@@ -121,6 +122,7 @@ public class RobinIA : MonoBehaviour
         }
         else
         {
+            print("123456");
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
             
             anim.SetBool("shoot", false);
@@ -187,6 +189,7 @@ public class RobinIA : MonoBehaviour
 
             Instantiate(shield, spawnSpell.transform);
             shieldIsOut = false;
+
         }
            
     }

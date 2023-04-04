@@ -51,6 +51,9 @@ public class Healercac : IAparentHealercac
     private float timer = 0.0f;
     public float gizmoRadius = 10.0f;
 
+    public Player_Mylane My;
+    private GameObject goal;
+
 
 
     // Start is called before the first frame update
@@ -60,6 +63,9 @@ public class Healercac : IAparentHealercac
         CanRez = true;
         Attacking = false;
         jetape = false;
+        
+        goal = GameObject.FindGameObjectWithTag("Goal");
+
     }
 
     // Update is called once per frame
@@ -85,19 +91,10 @@ public class Healercac : IAparentHealercac
         Detection();
 
         nav.SetDestination(posTransform.position);
+        nav.SetDestination(goal.transform.position);
         nav.speed = speed;
 
 
-        /*if (!CanRez)
-        {
-            timerJesus -= Time.deltaTime;
-            if (timerJesus <= 0f)
-            {
-                CanRez = true;
-                timerJesus = 60f;
-
-            }
-        }*/
 
         if (Pl != null && Pl.KO && !CanRez)
         {

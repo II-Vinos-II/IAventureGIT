@@ -67,6 +67,7 @@ public class ShieldController : MonoBehaviour
             {
                 Destroy(this.gameObject);
                 me.shieldIsOut = true;
+                me.StartCoroutine(me.shieldCooldown());
             }
         }
     }
@@ -104,6 +105,7 @@ public class ShieldController : MonoBehaviour
             {
                 Destroy(this.gameObject);
                 me.shieldIsOut = true;
+                me.StartCoroutine(me.shieldCooldown());
             }
             
 

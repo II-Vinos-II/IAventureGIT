@@ -16,9 +16,8 @@ public class IaAlexandre : playerLife
     [Header("General\n")]
     [SerializeField] NavMeshAgent nav;
     [SerializeField] Transform Objectif;
-    [SerializeField] bool isAtPos, isAlive;
     [SerializeField] float speed, baseArmor;
-
+    
     [Header("Attacks basic value")]
     float baseFireRate;
     float baseCoolDownCap1, baseCoolDownCap2, baseCoolDownCap3;
@@ -43,7 +42,6 @@ public class IaAlexandre : playerLife
     void Start()
     {
         #region(searchComponent)
-        isAlive = true;
         nav = GetComponent<NavMeshAgent>();
         myAnim = GetComponent<Animator>();
         #endregion
@@ -62,31 +60,38 @@ public class IaAlexandre : playerLife
     {
         Objectif = GameObject.Find("OBJECTIF").GetComponent<Transform>();
 
+        if (!KO)
+        {
             #region(décrémentation cooldown)
             if (fireRate > 0) fireRate -= Time.deltaTime;
             if (coolDownCap1 > 0) coolDownCap1 -= Time.deltaTime;
             if (coolDownCap2 > 0) coolDownCap2 -= Time.deltaTime;
             if (coolDownCap3 > 0) coolDownCap3 -= Time.deltaTime;
-            #endregion
-           
-            if (canUseCapacity1)
-            {
+        #endregion
+
+        if (canUseCapacity1)
+        {
                 autoSkillLauncher += Time.deltaTime;
                 Capacity1();
             }
-            else
+        else
             {
                 closestEnemy = GetClosestEnnemy();
+
                 Move(closestEnemy.position);
             }
             AttackGestion();
+        }
+        else
+        {
+            Move(transform.position);
+        }
     }
 
     #region(fonctions)
     #region(déplacement)
     public Transform GetClosestEnnemy()
     {
-        //ennemyArray = GameObject.FindGameObjectsWithTag("Enemy");
         float closestDistance = 30;
         Transform trans = null;
 
@@ -94,7 +99,6 @@ public class IaAlexandre : playerLife
 
         foreach (Collider go in ennemyArray)
         {
-            Debug.Log(go);
             float currentDistance;
             currentDistance = Vector3.Distance(transform.position, go.transform.position);
             if (currentDistance < closestDistance)
@@ -120,13 +124,11 @@ public class IaAlexandre : playerLife
 
         if (transform.position == posToGo)
         {
-            isAtPos = true;
             myAnim.SetBool("moving?", false);
             nav.speed = 0;
         }
         else
         {
-            isAtPos = false;
             myAnim.SetBool("moving?", true);
             nav.speed = speed;
         }
@@ -150,11 +152,6 @@ public class IaAlexandre : playerLife
         {
             if (InRange[i].gameObject.CompareTag("Enemy"))
             {
-
-                if (canUseCapacity1 && autoSkillLauncher <= 5)
-                {
-                    myAnim.SetBool("canSlash", true);
-                }
 
                 if (canUseBasicAtk)
                 {
