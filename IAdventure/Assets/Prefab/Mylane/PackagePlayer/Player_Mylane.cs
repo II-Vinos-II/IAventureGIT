@@ -64,8 +64,8 @@ public class Player_Mylane : IaParent_Mylane
     // Start is called before the first frame update
     void Start()
     {
-        tank_1 = FindObjectOfType<EisernJungfrauCornelia>().gameObject;
-        tank_2 = FindObjectOfType<IaBerserk>().gameObject;
+      /*  tank_1 = FindObjectOfType<EisernJungfrauCornelia>().gameObject;
+        tank_2 = FindObjectOfType<IaBerserk>().gameObject;*/
         posTransform = GameObject.FindGameObjectWithTag("Goal").transform;
         canability = true;
         canShoot = true;
