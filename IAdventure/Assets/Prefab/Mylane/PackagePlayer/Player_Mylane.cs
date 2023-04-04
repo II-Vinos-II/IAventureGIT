@@ -57,7 +57,7 @@ public class Player_Mylane : IaParent_Mylane
     [SerializeField] private LayerMask ennemieMask;
     private float[] targetDistance;
     public GameObject InsaneBot;
-
+    public GameObject Cap2_Target;
 
 
     // Start is called before the first frame update
@@ -140,19 +140,25 @@ public class Player_Mylane : IaParent_Mylane
 
 
                     }
-                    else if (canuseCap2 && canuseCap1 /*&& InsaneBot != null*/ )
+                    else if(canuseCap2 && InsaneBot!= null)
+                    {
+                        Capacity_2_ALl(InsaneBot);
+                    }
+                   /* else if (canuseCap2 && canuseCap1 /*&& InsaneBot != null*)
                     {
                         Debug.Log("aaaaaaa");
-                        Combo_1_2(ennemieToShoot);
-                    }
+                        Capacity_1(ennemieToShoot);
+                    }*/
                     else if (canuseCap1)
                     {
                         Capacity_1(ennemieToShoot);
                     }
+
                     else
                     {
                         PrimaryFire();
                     }
+
                 }
             }
           
@@ -240,17 +246,24 @@ public class Player_Mylane : IaParent_Mylane
             
             if(canuseCap2)
             {
-                Capacity_2(objectToapply);
+                Capacity_2_ALl(objectToapply);
             }
             StartCoroutine(Wait(cooldown_1, 1));
         }
       
     }
-    private void Capacity_2(GameObject ennemieAimed )
+    private void Capacity_2_ALl(GameObject ennemieAimed )
     {
         if(canuseCap2)
         {
+          
             canuseCap2 = false;
+            Cap2_Target = ennemieAimed;
+            for (int i = 0; i < GameObject.FindGameObjectsWithTag("DPS").Length; i++)
+            {
+               // GameObject.FindGameObjectsWithTag("DPS")[i].gameObject.GetComponent<Samuel_Controler>().;
+            }
+            StartCoroutine(CancelFocus());
             StartCoroutine(Wait(cooldown_2, 2));
         }
 
@@ -283,12 +296,12 @@ public class Player_Mylane : IaParent_Mylane
     }
     private void Combo_1_2(GameObject ennemietoAim)
     {
-        Capacity_2(ennemieToShoot);
+        Capacity_2_ALl(ennemieToShoot);
         Capacity_1(ennemietoAim);
     }
     private void Combo_1_2_3(GameObject ennemietoAim)
     {
-        Capacity_2(ennemieToShoot);
+        Capacity_2_ALl(ennemieToShoot);
         Capacity_1(ennemietoAim);
         capacityPos_3 = InsaneBot.transform.position;
         Capacity_3();
@@ -307,7 +320,11 @@ public class Player_Mylane : IaParent_Mylane
             }
     }
   
-
+    IEnumerator CancelFocus()
+    {
+        yield return new WaitForSeconds(2f);
+        Cap2_Target = null;
+    }
     IEnumerator Wait(float timeToWait , int capacitytoCharge )
     {
         yield return new WaitForSeconds(timeToWait);
