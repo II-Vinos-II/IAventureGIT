@@ -46866,6 +46866,9 @@ MonoBehaviour:
   - {fileID: 8951200511594648564, guid: 94b749e0e52a07241be83c3dec896093, type: 3}
   - {fileID: 8951200511594648564, guid: 94b749e0e52a07241be83c3dec896093, type: 3}
   - {fileID: 4410531544536789278, guid: 6d62337a986803f4e876a04314bda4d9, type: 3}
+  - {fileID: 4292699800090783849, guid: 80b3a4eaa14ed964eb86068a31acad76, type: 3}
+  - {fileID: 2320202924905034694, guid: 245ef310dd533f04b8d05f6ce0dd1f9e, type: 3}
+  - {fileID: 2479249672461984449, guid: c9c73b9cbde4d8649a759ec359ea3af3, type: 3}
   Beam: {fileID: 7625785823377995052, guid: 06ac7e2631e81734f98053ce2de107e0, type: 3}
   camScript: {fileID: 74593162}
   heroSave: []
