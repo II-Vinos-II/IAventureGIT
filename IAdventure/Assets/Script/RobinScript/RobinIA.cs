@@ -32,6 +32,8 @@ public class RobinIA : MonoBehaviour
     public GameObject shield;
     public Transform shieldTarget;
     public bool shieldIsOut;
+    private float spell2Cooldown= 10f;
+    private playerLife Pl;
 
     public Vector3 shieldTarget2;
 
@@ -54,6 +56,14 @@ public class RobinIA : MonoBehaviour
     private void Update()
     {
         navMesh.SetDestination(goal.transform.position);
+        if(transform.position != goal.transform.position)
+        {
+            anim.SetBool("run", true);
+        }
+        else if(transform.position == goal.transform.position)
+        {
+            anim.SetBool("run", false);
+        }
         
         Shoot(AttackRadius());
         for (int i=0; i < Squadmanager.Instance.squadLife.Length; i++)
@@ -61,13 +71,29 @@ public class RobinIA : MonoBehaviour
 
             if(Squadmanager.Instance.squadLife[i].vie <= 90% Squadmanager.Instance.squadLife[i].vieMax)
             {
-                
-                ThrowShield();
+                Pl = Squadmanager.Instance.squadLife[i];
+                if (shieldIsOut)
+                {
+                    StartCoroutine(shieldCooldown());
+                    
+
+                }
             }
         }
-        
-    }
 
+        if (Pl != null)
+        {
+            StartCoroutine(shieldCooldown());
+        }
+
+
+    }
+    IEnumerator shieldCooldown()
+    {
+        print("apalaapra");
+        yield return new WaitForSeconds(spell2Cooldown);
+        ThrowShield();
+    }
     protected void Shoot(Transform target)
     {
         
@@ -82,12 +108,13 @@ public class RobinIA : MonoBehaviour
             
             lineRenderer.SetPosition(1, hit.point);
             anim.SetBool("shoot", true);
+            anim.SetBool("run", false);
             navMesh.speed = 0;
             lineRenderer.enabled = true;
 
             if (canShoot)
             {
-                print("azzaeaeaeeaea");
+                
                 lifeE.takeDamage(damage);
                 StartCoroutine(shootCoolDown());
             }
@@ -97,6 +124,7 @@ public class RobinIA : MonoBehaviour
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
             
             anim.SetBool("shoot", false);
+            anim.SetBool("run", true);
             navMesh.speed = 5;
             lineRenderer.enabled = false;
         }

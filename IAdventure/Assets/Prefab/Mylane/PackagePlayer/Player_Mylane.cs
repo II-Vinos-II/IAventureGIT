@@ -9,8 +9,8 @@ using System;
 public class Player_Mylane : IaParent_Mylane
 {
 
-    bool canShoot,shoot,onAvance,inDanger,canability;
-    public bool WasIncombat;
+    bool canShoot,shoot,inDanger,canability;
+    public bool WasIncombat, onAvance;
 
 
     private  Bounds bounds;
