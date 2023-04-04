@@ -5598,7 +5598,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   WasIncombat: 0
-  onAvance: 0
+  onAvance: 1
   ally:
   - {fileID: 0}
   - {fileID: 0}
@@ -5632,6 +5632,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   InsaneBot: {fileID: 0}
+  Cap2_Target: {fileID: 0}
+  tank_1: {fileID: 0}
+  tank_2: {fileID: 0}
 --- !u!195 &832253280382707254
 NavMeshAgent:
   m_ObjectHideFlags: 0
