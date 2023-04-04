@@ -33,6 +33,7 @@ public class RobinIA : MonoBehaviour
     public Transform shieldTarget;
     public bool shieldIsOut;
     private float spell2Cooldown= 10f;
+    private playerLife Pl;
 
     public Vector3 shieldTarget2;
 
@@ -70,20 +71,26 @@ public class RobinIA : MonoBehaviour
 
             if(Squadmanager.Instance.squadLife[i].vie <= 90% Squadmanager.Instance.squadLife[i].vieMax)
             {
+                Pl = Squadmanager.Instance.squadLife[i];
                 if (shieldIsOut)
                 {
                     StartCoroutine(shieldCooldown());
-                    ThrowShield();
+                    
 
                 }
             }
         }
-       
+
+        if (Pl != null)
+        {
+            StartCoroutine(shieldCooldown());
+        }
 
 
     }
     IEnumerator shieldCooldown()
     {
+        print("apalaapra");
         yield return new WaitForSeconds(spell2Cooldown);
         ThrowShield();
     }
