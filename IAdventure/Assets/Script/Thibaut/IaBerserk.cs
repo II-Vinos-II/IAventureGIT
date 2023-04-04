@@ -120,7 +120,18 @@ public class IaBerserk : playerLife
         //move et attack
         if (vie > 0 && !isCasting)
         {
-            Move(posTransform.position, speed);
+            if (FindObjectOfType<Player_Mylane>() != null)
+            {
+                if (FindObjectOfType<Player_Mylane>().onAvance)
+                {
+                    Move(posTransform.position, speed);
+                }
+            }
+            else
+            {
+                Move(posTransform.position, speed);
+            }
+
 
             if (ennemieToShoot != null)
             {
