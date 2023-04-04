@@ -1567,6 +1567,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3689934951460299352
 GameObject:
   m_ObjectHideFlags: 0
@@ -3177,7 +3178,7 @@ MonoBehaviour:
   fireRate: 0.5
   damagePerHit: 5
   distance: 1
-  range: 1000
+  range: 20
   hitColliders: []
   ennemieDetect:
     serializedVersion: 2
@@ -3205,6 +3206,7 @@ MonoBehaviour:
   activationTime: 10
   cooldownTime: 40
   gizmoRadius: 10
+  My: {fileID: 0}
 --- !u!195 &3690206547380237649
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3247,6 +3249,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3690209138577445828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4333,6 +4336,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3690501092507460352
 GameObject:
   m_ObjectHideFlags: 0
