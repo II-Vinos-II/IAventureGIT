@@ -76,12 +76,26 @@ public class IaBerserk : playerLife
     void Update()
     {
         //set up de l'ennemis
-        if (AttackRadius() != null && ennemieToShoot == null)
+        if (AttackRadius() != null)
         {
-            deadCounter++;
-            textMeshTransform.GetComponent<TextMeshPro>().text = deadCounter + "+";
-            textMeshTransform.GetComponent<Animation>().Play("DeathUp");
-            ennemieToShoot = AttackRadius().gameObject;
+            if (ennemieToShoot == null)
+            {
+                deadCounter++;
+                textMeshTransform.GetComponent<TextMeshPro>().text = deadCounter + "+";
+                textMeshTransform.GetComponent<Animation>().Play("DeathUp");
+
+                ennemieToShoot = AttackRadius().gameObject;
+            }
+            else
+            {
+                float smollcheck = Vector3.Distance(AttackRadius().position, transform.position);
+
+                if (smollcheck < posdistance && smollcheck > 3f)
+                {
+                    ennemieToShoot = AttackRadius().gameObject;
+                }
+            }
+
         }
         //textfacecam
         textMeshTransform.transform.rotation = Quaternion.LookRotation(textMeshTransform.transform.position - Camera.main.transform.position);
@@ -106,7 +120,18 @@ public class IaBerserk : playerLife
         //move et attack
         if (vie > 0 && !isCasting)
         {
-            Move(posTransform.position, speed);
+            if (FindObjectOfType<Player_Mylane>() != null)
+            {
+                if (FindObjectOfType<Player_Mylane>().onAvance)
+                {
+                    Move(posTransform.position, speed);
+                }
+            }
+            else
+            {
+                Move(posTransform.position, speed);
+            }
+
 
             if (ennemieToShoot != null)
             {

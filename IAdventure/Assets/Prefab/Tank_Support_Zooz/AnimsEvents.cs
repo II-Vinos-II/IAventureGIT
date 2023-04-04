@@ -8,7 +8,7 @@ public class AnimsEvents : MonoBehaviour
 
     public void Fire()
     {
-        coooneliaaaaa.Fire(coooneliaaaaa.attackTarget);
+        coooneliaaaaa.Fire();
     }
 
     public void Reflect()
