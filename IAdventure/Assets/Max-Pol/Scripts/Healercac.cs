@@ -91,7 +91,7 @@ public class Healercac : IAparentHealercac
         Detection();
 
         nav.SetDestination(posTransform.position);
-        nav.SetDestination(goal.transform.position);
+        //nav.SetDestination(goal.transform.position);
         nav.speed = speed;
 
 
